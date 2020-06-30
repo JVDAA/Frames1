@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/template/template.xhtml">
+
+    <ui:define name="conteudo">
+        <h:form class="form-inline" style="margin-top: 2%">
+            <div class="form-group mb-2 col-md-2">
+                <label for="lblDescricao" class="sr-only">lblDescricao</label>
+                <input type="text" readonly="readonly" class="form-control-plaintext" id="lblDescricao" value="Descricao:"/>
+            </div>
+            <div class="form-group mb-2 col-md-4">
+                <label for="descricao" class="sr-only">Descricao</label>
+                <h:inputText class="form-control" value="#{areaController.areaModel.descricao}"/>
+            </div>
+            <h:commandButton class="btn btn-primary mb-2" value="Buscar" action="#{areaController.buscarPorNome()}"/>
+        </h:form>
+
+        <table class="table table-bordered table-grey" style="margin-top: 3%">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Descricao</th>
+                    <th scope="col">#</th>
+                    <th scope="col">#</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <ui:repeat value="#{areaController.listaDeAreas}" var="area">
+                    <tr>
+                        <td>#{area.idArea}</td>
+                        <td>#{area.descricao}</td>
+                        <td>
+                            <h:form>
+                                <h:commandButton class="btn btn-info" value="Editar" action= "#{areaController.editarPorID(area.idArea)}"/>
+                            </h:form>
+                        </td>
+                        <td>
+                            <h:form>
+                                <h:commandButton class="btn btn-danger" value="Excluir" onclick="return confirm('Deseja realmente excluir o registro?')" action= "#{areaController.excluirPorID(area.idArea)}"/>
+                            </h:form>
+                        </td>
+                    </tr>
+                </ui:repeat> 
+            </tbody>
+        </table>
+    </ui:define>
+</ui:composition>
+
